@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>JYDE Studio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#fff;
+  color:#0a3d1b;
+  text-align:center;
+}
+
+/* HEADER */
+header{
+  background: linear-gradient(90deg, #FF0000, #00FF00, #0000FF, #FFFF00);
+  padding:50px 20px;
+  color:#fff;
+}
+
+header img{
+  width:180px;
+  border-radius:50%;
+  background:#fff;
+  padding:8px;
+  box-shadow:0 0 40px rgba(0,0,0,0.3);
+}
+
+/* SECCIONES */
+section{
+  padding:20px 12px;
+}
+
+h2{
+  border-bottom:3px solid #FF0000;
+  display:inline-block;
+  padding-bottom:6px;
+  margin-top:35px;
+}
+
+.servicio{
+  border:1px solid #FF0000;
+  border-radius:14px;
+  padding:16px;
+  margin:12px auto;
+  max-width:520px;
+  background:#fff9f9;
+  cursor:pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+.servicio:hover{
+  background:#ffdede;
+  transform:scale(1.03);
+}
+
+/* VIDEO BOX PRINCIPAL */
+.video-box{
+  width:100%;
+  max-width:360px;
+  margin:20px auto;
+  border-radius:18px;
+  overflow:hidden;
+  aspect-ratio:9/16;
+}
+.video-box iframe{
+  width:100%;
+  height:100%;
+  border:none;
+}
+
+/* MODAL CENTRADO */
+.modal{
+  display:none; /* NO se muestra al cargar */
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.8);
+  z-index:1000;
+  align-items:center;
+  justify-content:center;
+}
+.modal-content{
+  background:#fff;
+  border-radius:14px;
+  max-width:500px;
+  width:95%;
+  max-height:90vh;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:flex-start;
+  padding:10px;
+}
+.modal-content .cerrar{
+  position:absolute;
+  top:10px;
+  right:15px;
+  font-size:28px;
+  font-weight:bold;
+  cursor:pointer;
+  z-index:10;
+}
+
+/* DESCRIPCIÓN DESLIZABLE */
+.modal-desc-scroll{
+  max-height:200px;
+  overflow-y:auto;
+  padding:12px;
+  text-align:left;
+  font-size:14px;
+  line-height:1.5;
+  background:#fff9f9;
+  width:90%;
+  margin:10px auto;
+  border-radius:10px;
+  border:1px solid #FF0000;
+}
+
+/* VIDEO MODAL DEBAJO */
+.modal-video{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+  margin-top:10px;
+}
+.modal-video iframe{
+  width:100%;
+  max-height:70vh;
+  aspect-ratio:9/16;
+  border:none;
+  border-radius:14px;
+}
+
+/* BOTÓN WHATSAPP */
+.whatsapp-float{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  width:60px;
+  height:60px;
+  background:#25D366;
+  color:#fff;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:32px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.3);
+  text-decoration:none;
+  z-index:999;
+}
+
+footer{
+  background:#0a3d1b;
+  color:#fff;
+  padding:16px;
+  margin-top:40px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <img src="logo_jyde.png" alt="JYDE Studio">
+  <h1>JYDE Studio</h1>
+  <p>Tu logo personalizado en minutos</p>
+</header>
+
+<section>
+<h2>Servicios</h2>
+
+<div class="servicio" onclick="abrirModal(0)">Logo minimalista</div>
+<div class="servicio" onclick="abrirModal(1)">Logo con paleta de colores</div>
+<div class="servicio" onclick="abrirModal(2)">Logo digital para redes sociales</div>
+
+<!-- VIDEO PRINCIPAL (opcional, se puede dejar vacío) -->
+<div class="video-box">
+  <iframe src="" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>
+</div>
+
+</section>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="cerrar" onclick="cerrarModal()">&times;</span>
+    
+    <!-- DESCRIPCIÓN ARRIBA -->
+    <div class="modal-desc-scroll" id="modal-desc"></div>
+
+    <!-- VIDEO DEBAJO -->
+    <div class="modal-video">
+      <iframe id="modal-iframe" src="" allowfullscreen allow="autoplay; encrypted-media; picture-in-picture"></iframe>
+    </div>
+  </div>
+</div>
+
+<footer>
+© 2026 JYDE Studio · Todos los derechos reservados
+</footer>
+
+<a href="https://wa.me/50671899577"
+   class="whatsapp-float"
+   target="_blank">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" width="35">
+</a>
+
+<script>
+// Descripciones de servicios
+const serviciosVideos = [
+  { src:'', desc:`<strong>Logo minimalista</strong><br>
+Creamos logos simples y modernos, listos para usar en redes sociales y tarjetas.` },
+  { src:'', desc:`<strong>Logo con paleta de colores</strong><br>
+Diseños coloridos y personalizados según tu estilo y preferencias.` },
+  { src:'', desc:`<strong>Logo digital para redes sociales</strong><br>
+Archivos listos para usar en WhatsApp, Facebook, Instagram o tu sitio web.` }
+];
+
+// Abrir modal
+function abrirModal(index){
+  const modal = document.getElementById('modal');
+  const iframe = document.getElementById('modal-iframe');
+  const descScroll = document.getElementById('modal-desc');
+  iframe.src = serviciosVideos[index].src;
+  descScroll.innerHTML = serviciosVideos[index].desc;
+  modal.style.display = 'flex';
+}
+
+// Cerrar modal
+function cerrarModal(){
+  document.getElementById('modal').style.display='none';
+  document.getElementById('modal-iframe').src='';
+}
+
+// Cerrar al hacer click fuera
+window.onclick = function(e){
+  if(e.target.id==='modal') cerrarModal();
+}
+</script>
+
+</body>
+</html>
